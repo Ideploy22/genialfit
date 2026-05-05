@@ -1,29 +1,19 @@
-import { LoginScreen } from '@/features/auth/screens/LoginScreen';
-import { useAuthStore } from '@/features/auth/store/authStore';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { MenuScreen } from '@/features/menu/screens/MenuScreen';
 import { HomeScreen } from '@/features/home/screens/HomeScreen';
-import { WorkoutFormScreen } from '@/features/workouts/screens/WorkoutFormScreen';
-import { WorkoutListScreen } from '@/features/workouts/screens/WorkoutListScreen';
-import { useNavigationStore } from '@/store/navigationStore';
 
-function AppNavigator() {
-	const screen = useNavigationStore((s) => s.screen);
+export type RootStackParamList = {
+	Home: undefined;
+	Menu: undefined;
+};
 
-	switch (screen) {
-		case 'WorkoutList':
-			return <WorkoutListScreen />;
-		case 'WorkoutForm':
-			return <WorkoutFormScreen />;
-		default:
-			return <HomeScreen />;
-	}
-}
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export function RootNavigator() {
-	const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-
-	if (!isAuthenticated) {
-		return <LoginScreen />;
-	}
-
-	return <AppNavigator />;
+	return (
+		<Stack.Navigator screenOptions={{ headerShown: false }}>
+			<Stack.Screen name="Home" component={HomeScreen} />
+			<Stack.Screen name="Menu" component={MenuScreen} />
+		</Stack.Navigator>
+	);
 }

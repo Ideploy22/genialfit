@@ -1,3 +1,6 @@
+export type { TenantColors, TenantConfig } from './tenant';
+export { defaultTenant } from './tenant';
+
 export interface User {
 	id: string;
 	name: string;

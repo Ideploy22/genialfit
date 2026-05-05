@@ -1,60 +1,70 @@
-import { Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Image, Text, View } from 'react-native';
+import logo from '@/assets/images/logo.png';
+import union from '@/assets/images/Union.png';
 import { Button } from '@/components/ui/Button';
-import { useAuth } from '@/features/auth/hooks/useAuth';
-import { useWorkoutStore } from '@/features/workouts/store/workoutStore';
-import { useNavigationStore } from '@/store/navigationStore';
+import type { RootStackParamList } from '@/navigation/RootNavigator';
 
 export function HomeScreen() {
-	const { user, logout } = useAuth();
-	const workouts = useWorkoutStore((s) => s.workouts);
-	const navigate = useNavigationStore((s) => s.navigate);
-
-	const totalMinutes = workouts.reduce((acc, w) => acc + Number(w.duration), 0);
-
+	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 	return (
-		<View className="flex-1 bg-surface px-6 pt-14">
-			{/* Header */}
-			<View className="mb-8">
-				<Text className="text-3xl font-bold text-primary">Genialfit</Text>
-				<Text className="text-gray-500 mt-1">
-					Olá, {user?.name ?? 'Atleta'} — bora treinar?
-				</Text>
+		<View className="flex-1 bg-surface">
+			<View className="h-[70%] relative border-2 border-b-stone-900 rounded-b-[175px] overflow-hidden">
+				<View className="absolute top-0 z-10 text-center w-full mt-28">
+					<Text className="font-exo-bold text-white text-8xl mx-20">
+						Seja a sua melhor versão
+					</Text>
+				</View>
+				<View className="absolute bottom-60 z-10 text-center max-w-[70%]">
+					<Text className="font-exo-bold text-white text-5xl mx-20">
+						Descubra peças que combinam com o seu estilo. Compre direto no totem
+						e evite filas.
+					</Text>
+				</View>
+				<View className="absolute z-10 bottom-16 w-full gap-4 flex-row justify-center">
+					{Array.from({ length: 4 }).map((_, index) => {
+						let bg = 'bg-[#D9D9D96B]';
+						switch (index) {
+							case 0:
+								bg = 'bg-primary-3';
+								break;
+							default:
+								bg = 'bg-[#D9D9D96B]';
+						}
+						return (
+							<View
+								key={String(index)}
+								className={`w-[135px] h-[7px] rounded-lg ${bg}`}
+							></View>
+						);
+					})}
+				</View>
+				<Image source={union} className="w-full h-full" />
 			</View>
-
-			{/* Stats */}
-			<View className="flex-row gap-4 mb-6">
-				<TouchableOpacity
-					className="flex-1 bg-card rounded-2xl p-4 shadow-sm"
-					onPress={() => navigate('WorkoutList')}
-					activeOpacity={0.8}
-				>
-					<Text className="text-xs text-gray-500 mb-1">Treinos salvos</Text>
-					<Text className="text-4xl font-bold text-primary">
-						{workouts.length}
-					</Text>
-					<Text className="text-xs text-primary mt-2">Ver todos →</Text>
-				</TouchableOpacity>
-
-				<View className="flex-1 bg-card rounded-2xl p-4 shadow-sm">
-					<Text className="text-xs text-gray-500 mb-1">Total acumulado</Text>
-					<Text className="text-4xl font-bold text-secondary">
-						{totalMinutes}
-					</Text>
-					<Text className="text-xs text-gray-400 mt-2">minutos</Text>
+			<View className="mb-8 mt-16 flex-1 justify-between">
+				<View className="w-full justify-center items-center">
+					<View>
+						<Text className="font-exo-bold text-g-700 text-4xl text-center">
+							Atenção
+						</Text>
+						<Text className="font-exo-semibold text-slate-400 text-4xl items-center justify-center text-center mx-12 m-6">
+							Todos os processos são monitorados por câmeras e acompanhadas por
+							nossos colaboradores.
+						</Text>
+					</View>
+				</View>
+				<Button
+					label="Toque na tela para começar"
+					className="mx-52"
+					variant="primary"
+					size="lg"
+					onPress={() => navigation.navigate('Menu')}
+				/>
+				<View className="w-full justify-center items-center">
+					<Image source={logo} />
 				</View>
 			</View>
-
-			{/* Quick actions */}
-			<View className="gap-3 mb-8">
-				<Button label="+ Novo Treino" onPress={() => navigate('WorkoutForm')} />
-				<Button
-					label="Ver Treinos"
-					variant="outline"
-					onPress={() => navigate('WorkoutList')}
-				/>
-			</View>
-
-			<Button label="Sair" variant="ghost" onPress={logout} />
 		</View>
 	);
 }

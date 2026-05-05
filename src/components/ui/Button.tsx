@@ -8,14 +8,18 @@ import { tv } from 'tailwind-variants';
 
 const button = tv({
 	slots: {
-		root: 'h-12 rounded-xl flex-row items-center justify-center gap-2',
-		label: 'font-semibold text-base',
+		root: 'rounded-2xl flex-row items-center justify-center gap-2',
+		label: 'font-exo-bold',
 	},
 	variants: {
 		variant: {
 			primary: {
-				root: 'bg-primary',
+				root: 'bg-primary-1',
 				label: 'text-white',
+			},
+			secundary: {
+				root: 'bg-g-200',
+				label: 'text-g-700',
 			},
 			outline: {
 				root: 'border border-primary bg-transparent',
@@ -26,6 +30,20 @@ const button = tv({
 				label: 'text-primary',
 			},
 		},
+		size: {
+			sm: {
+				root: 'h-11',
+				label: 'text-base',
+			},
+			md: {
+				root: 'h-16',
+				label: 'text-2xl',
+			},
+			lg: {
+				root: 'h-24',
+				label: 'text-4xl',
+			},
+		},
 		disabled: {
 			true: {
 				root: 'opacity-50',
@@ -34,25 +52,32 @@ const button = tv({
 	},
 	defaultVariants: {
 		variant: 'primary',
+		size: 'md',
 	},
 });
 
 interface ButtonProps extends TouchableOpacityProps {
 	label: string;
 	loading?: boolean;
-	variant?: 'primary' | 'outline' | 'ghost';
+	variant?: 'primary' | 'outline' | 'ghost' | 'secundary';
+	size?: 'sm' | 'md' | 'lg';
 }
 
 export function Button({
 	label,
 	loading = false,
 	variant = 'primary',
+	size = 'md',
 	disabled,
 	className,
 	...props
 }: ButtonProps) {
 	const isDisabled = disabled || loading;
-	const { root, label: labelStyle } = button({ variant, disabled: isDisabled });
+	const { root, label: labelStyle } = button({
+		variant,
+		size,
+		disabled: isDisabled,
+	});
 
 	return (
 		<TouchableOpacity
