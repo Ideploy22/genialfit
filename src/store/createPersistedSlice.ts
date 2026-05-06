@@ -1,5 +1,7 @@
+import { createMMKV } from 'react-native-mmkv';
 import type { PersistStorage, StorageValue } from 'zustand/middleware';
-import { storage } from '@/lib/storage';
+
+const storage = createMMKV();
 
 export function createMMKVStorage<T>(): PersistStorage<T> {
 	return {
