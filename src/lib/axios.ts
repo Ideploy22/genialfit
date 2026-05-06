@@ -1,8 +1,7 @@
+import { tenantStore } from '@/store/tenantStore';
 import axios from 'axios';
-import { storage } from './storage';
 
 const BASE_URL = 'https://api.genialfit.com/v1';
-const TOKEN_KEY = 'auth_token';
 
 export const api = axios.create({
 	baseURL: BASE_URL,
@@ -13,10 +12,17 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-	const token = storage.getString(TOKEN_KEY);
-	if (token) {
-		config.headers.Authorization = `Bearer ${token}`;
+
+	const isXApiKey = config.headers['X-API-KEY'] !== undefined;
+
+
+	if (!isXApiKey) {
+		const apiKey = tenantStore.getState().tenant?.xApiKey;
+		if (apiKey) {
+			config.headers['X-API-KEY'] = apiKey;
+		}
 	}
+
 	return config;
 });
 
@@ -24,9 +30,9 @@ api.interceptors.response.use(
 	(response) => response,
 	async (error) => {
 		const status = error.response?.status;
-		if (status === 401) {
-			storage.remove(TOKEN_KEY);
-		}
+		// if (status === 401) {
+		// 	storage.remove(TOKEN_KEY);
+		// }
 		return Promise.reject(error);
 	},
 );

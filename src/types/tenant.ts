@@ -9,12 +9,14 @@ export interface TenantConfig {
 	name: string;
 	logoUrl: string;
 	colors: TenantColors;
+	xApiKey: string;
 }
 
 export const defaultTenant: TenantConfig = {
 	id: 'default',
 	name: 'Genialfit',
 	logoUrl: '',
+	xApiKey: '',
 	colors: {
 		primary1: '#20386c',
 		primary2: '#b81c47',
