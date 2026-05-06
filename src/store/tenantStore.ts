@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { defaultTenant, type TenantConfig } from '@/types/tenant';
-import { mmkvStorage } from './createPersistedSlice';
+import { createMMKVStorage } from './createPersistedSlice';
 
 interface TenantState {
 	tenant: TenantConfig;
@@ -18,7 +18,7 @@ export const useTenantStore = create<TenantState>()(
 		}),
 		{
 			name: 'tenant-storage',
-			storage: mmkvStorage,
+			storage: createMMKVStorage<TenantState>(),
 		},
 	),
 );

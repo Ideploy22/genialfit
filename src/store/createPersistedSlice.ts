@@ -1,11 +1,18 @@
-import type { StateStorage } from 'zustand/middleware';
+import type { PersistStorage, StorageValue } from 'zustand/middleware';
 import { storage } from '@/lib/storage';
 
-/**
- * Adapter MMKV → Zustand StateStorage
- */
-export const mmkvStorage: StateStorage = {
-	getItem: (key) => storage.getString(key) ?? null,
-	setItem: (key, value) => storage.set(key, value),
-	removeItem: (key) => storage.remove(key),
-};
+export function createMMKVStorage<T>(): PersistStorage<T> {
+	return {
+		getItem: (key): StorageValue<T> | null => {
+			const value = storage.getString(key);
+			if (!value) return null;
+			return JSON.parse(value) as StorageValue<T>;
+		},
+		setItem: (key, value: StorageValue<T>): void => {
+			storage.set(key, JSON.stringify(value));
+		},
+		removeItem: (key): void => {
+			storage.remove(key);
+		},
+	};
+}
