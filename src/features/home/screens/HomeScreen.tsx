@@ -1,13 +1,15 @@
-import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Image, Text, View } from 'react-native';
 import logo from '@/assets/images/logo.png';
 import union from '@/assets/images/Union.png';
 import { Button } from '@/components/ui/Button';
-import type { RootStackParamList } from '@/navigation/RootNavigator';
+import { AppNavigationProp } from '@/navigation/RootNavigator';
+import { useNavigation } from '@react-navigation/native';
+import { Image, Text, View } from 'react-native';
+
+
 
 export function HomeScreen() {
-	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+	const navigation = useNavigation<AppNavigationProp>();
+
 	return (
 		<View className="flex-1 bg-surface">
 			<View className="h-[70%] relative border-2 border-b-stone-900 rounded-b-[175px] overflow-hidden">
@@ -59,7 +61,7 @@ export function HomeScreen() {
 					className="mx-52"
 					variant="primary"
 					size="lg"
-					onPress={() => navigation.navigate('Menu')}
+					onPress={() => navigation.navigate('MenuScreen')}
 				/>
 				<View className="w-full justify-center items-center">
 					<Image source={logo} />

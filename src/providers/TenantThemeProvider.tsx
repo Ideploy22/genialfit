@@ -1,7 +1,7 @@
+import { useTenantStore } from '@/store/tenantStore';
 import { vars } from 'nativewind';
 import type { PropsWithChildren } from 'react';
 import { View } from 'react-native';
-import { useTenantStore } from '@/store/tenantStore';
 
 export function TenantThemeProvider({ children }: PropsWithChildren) {
   const { colors } = useTenantStore((s) => s.tenant);

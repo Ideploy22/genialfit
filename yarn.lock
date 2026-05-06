@@ -2062,6 +2062,11 @@
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.3.tgz#6209321eb2c1712a7e7466422b8cb1fc0d9dd5d8"
   integrity sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==
 
+"@types/vanilla-masker@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@types/vanilla-masker/-/vanilla-masker-1.2.4.tgz#cc6504eede682e9cac04200502cd231d65a0e2eb"
+  integrity sha512-xPFAeYZ17SShYAwNeSY2X4GBDbsYIQgLOQv0AmO9F0KO7cdgYIzEiRXdVrxvCGZDGj6LNI4OCM+0riL2PHWX4g==
+
 "@types/yargs-parser@*":
   version "21.0.3"
   resolved "https://registry.yarnpkg.com/@types/yargs-parser/-/yargs-parser-21.0.3.tgz#815e30b786d2e8f0dcd85fd5bcf5e1a04d008f15"
@@ -7367,6 +7372,11 @@ v8-to-istanbul@^9.0.1:
     "@jridgewell/trace-mapping" "^0.3.12"
     "@types/istanbul-lib-coverage" "^2.0.1"
     convert-source-map "^2.0.0"
+
+vanilla-masker@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/vanilla-masker/-/vanilla-masker-1.2.0.tgz#c2830e9d994a5fecd2261506477c2707fe589756"
+  integrity sha512-5SQeksiWaRYfbTaLVcqDPlvINGRt7ODbmWqqMMdT4GuZEC01KJm7FxaytscI5GZ9mlkTNQDwqllSHbv1ENxQEA==
 
 vary@~1.1.2:
   version "1.1.2"

@@ -1,19 +1,37 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { MenuScreen } from '@/features/menu/screens/MenuScreen';
 import { HomeScreen } from '@/features/home/screens/HomeScreen';
+import { MenuScreen } from '@/features/menu/screens/MenuScreen';
+import { MenuScreenTest } from '@/features/menu/screens/MenuScreenTest';
 
-export type RootStackParamList = {
-	Home: undefined;
-	Menu: undefined;
-};
+import { createStaticNavigation, StaticParamList } from '@react-navigation/native';
+import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const RootStack = createNativeStackNavigator({
+	initialRouteName: 'HomeScreen',
+	screenOptions: {
+		headerShown: false,
+		contentStyle: { backgroundColor: '#fff' },
+	},
+	screens: {
+		HomeScreen,
+		MenuScreen,
+		MenuScreenTest
+	},
+});
+
+const Navigation = createStaticNavigation(RootStack);
 
 export function RootNavigator() {
 	return (
-		<Stack.Navigator screenOptions={{ headerShown: false }}>
-			<Stack.Screen name="Home" component={HomeScreen} />
-			<Stack.Screen name="Menu" component={MenuScreen} />
-		</Stack.Navigator>
+		<Navigation />
 	);
+}
+
+export type RootStackParamList = StaticParamList<typeof RootStack>;
+export type AppNavigationProp = NativeStackNavigationProp<RootStackParamList>;
+
+
+declare global {
+	namespace ReactNavigation {
+		interface RootParamList extends RootStackParamList {}
+	}
 }

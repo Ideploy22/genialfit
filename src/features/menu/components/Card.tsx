@@ -1,13 +1,13 @@
+import bolsa from '@/assets/images/bolsa.png';
+import ArrowRight from '@/assets/svg/arrow-right.svg';
+import { useTheme } from '@/hooks/useTheme';
+import { AppNavigationProp, RootStackParamList } from '@/navigation/RootNavigator';
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { FC } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import type { SvgProps } from 'react-native-svg';
 import { tv } from 'tailwind-variants';
-import bolsa from '@/assets/images/bolsa.png';
-import ArrowRight from '@/assets/svg/arrow-right.svg';
-import { useTheme } from '@/hooks/useTheme';
-import type { RootStackParamList } from '@/navigation/RootNavigator';
+
 
 interface CardProps {
 	icon?: FC<SvgProps>;
@@ -38,8 +38,7 @@ const variantCard = tv({
 export function Card(props: CardProps) {
 	const { icon: Icon, label, title, nav, highlight = false } = props;
 	const { cardRoot, labelStyle, titleStyle } = variantCard({ highlight });
-	const navigation =
-		useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+	const navigation = useNavigation<AppNavigationProp>();
 	const { primary1, primary2 } = useTheme();
 
 	return (
